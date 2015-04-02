@@ -63,90 +63,41 @@ class sistCoord:
         #pto+=OCS
         return nwpto
 
-#class pto(array):
-#class pto:
-#    def __init__(self,coord,sistCoord):
-#        self.coord=coord
-#        self.sistCoord=sistCoord
-
-origen=array([1,1,1])
-
-xaxis=array([1,0,0])
-
-yaxis=array([0,1,0])
-
-zaxis=array([0,0,1])#origen=array([0,0,0])
 
 
+print ("\n************Translacao entre Sistemas Coordenados**************\n")
 
-
-#origen=array([0,0,0])
-#
-##origen=array([1,1,1])
-#
-#xaxis=array([4.0/5,3.0/5,0])
-#
-#yaxis=array([-3.0/5,4.0/5,0])
-#
-#zaxis=array([0,0,1])
-
-
-local=sistCoord(origen,xaxis,yaxis,zaxis)
-
-pto=array([1,1,0])
-
-ptoGl=local.LCS2UCS(pto)
-
-print ("local.LCS2UCS(pto)= ",ptoGl)
-
-ptoGl=local.UCS2LCS(ptoGl)
-
-print ("local.UCS2LCS(pto)= ",ptoGl)
-
-
-#xaxis=array([1.0/2**0.5,1.0/2**0.5,0])
-#
-#yaxis=array([-1.0/2**0.5,1.0/2**0.5,0])
-#
-#zaxis=array([0,0,1])
-
-
-local1=sistCoord(origen,xaxis,yaxis,zaxis)
-
-pto=array([1,1,0])
-
-ptoGl=local1.LCS2UCS(pto)
-
-print ("local1.LCS2UCS(pto)= ",ptoGl)
-
-ptoGl=local1.UCS2LCS(ptoGl)
-
-print ("local1.UCS2LCS(pto)= ",ptoGl)
-
-
-
-print ("************Translacao entre Sistemas Coordenados************** ")
-
+#Criação do Sist Estrutural
 SEorigin=array([0,0,-5.182])
 xaxis,yaxis,zaxis=array([0,-1,0]),array([1,0,0]),array([0,0,1])
 SE=sistCoord(SEorigin,xaxis,yaxis,zaxis)
 
+
+#Provando Pontos 1
 Origen_do_global=array([0,0,0])
 
 Origen_do_global_SE=SE.UCS2LCS(Origen_do_global)
 
 print("\nOrigen_do_global_SE= ",Origen_do_global_SE)
 
+
+
+#Criação do Sist Local
+#Provando Pontos 2
 OLS_SE=array([-60,-13.24,4.8])
 
 print("OLS_SE= ",OLS_SE)
 
+#Origem LocalSystem em SE ---> Origem LocalSystem em global
 OLS_gl=SE.LCS2UCS(OLS_SE)
+print("\nLocalSistem LS_gl= ",OLS_gl)
 
+#Eixos do sistema Local no SEstructural
 xrs_se=array([-1,0,0])
 yrs_se=array([0,-1,0])
 zrs_se=array([0,0,1])
 
+#Eixos do sistema Local no Global (Ers_SE--->Ers_gl)
 xrs_gl=SE.ijk_LCS2UCS(xrs_se)
 yrs_gl=SE.ijk_LCS2UCS(yrs_se)
 zrs_gl=SE.ijk_LCS2UCS(zrs_se)
@@ -155,45 +106,26 @@ print("xrs,yrs,zrs_gl= ",xrs_gl,yrs_gl,zrs_gl)
 
 LS=sistCoord(OLS_gl,xrs_gl,yrs_gl,zrs_gl)
 
-print("\nLocalSistem LS_gl= ",OLS_gl)
 
+#Ponto de Tangencia no SistemaLocal
 PT_SL=array([-35.017,0,5.668])
 
 print("\nPto Tangencia_LS ",PT_SL)
 
+#Ponto de Tangencia no SistemaGlobal
 PT_GL=LS.LCS2UCS(PT_SL)
 
 print("\nPto Tangencia_GL ",PT_GL)
 
+#Ponto de Tangencia no SistemaEstrutural
 PT_SE=SE.UCS2LCS(PT_GL)
 
 print("\nPto Tangencia_SE ",PT_SE)
 
 
+#Ponto de Tangencia no SistemaEstrutural. Metodo OCS2LCS
+print ("\n---Metodo OCS2LCS---\n")
+
 PT_seProva=SE.OCS2LCS(LS,PT_SL)
 
 print("\nPto Tangencia_SEprova ",PT_seProva)
-
-#sistLocal=sistCoord(origen,xaxis,yaxis,zaxis)
-
-#pto1=pto([1,5,4],sistLocal)
-
-
-
-#a=array([1,2,3])
-
-#print (a)
-
-
-#Transformador
-
-#class sistCoord:
-#    def __init__(self,origem,xaxis,yaxis,zaxis):
-#        self.origem=origem
-#        self.xaxis=xaxis
-#        self.yaxis=yaxis
-#        self.zaxis=zaxis
-
-
-#Pto siempre guarda solo em coordenada global
-#o guarda coordenadas e sistema de coordenadas

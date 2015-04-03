@@ -7,34 +7,50 @@ class sistCoord:
         self.yaxis=yaxis
         self.zaxis=zaxis
 
-    def UCS2LCS(self,pto):
+#    def UCS2LCS(self,pto):
+#        matrix=array([self.xaxis,self.yaxis,self.zaxis])
+#        #matrix=matrix.T
+#        pto=inner(matrix,pto)
+#        pto=pto-self.origem
+#        return pto
+        
+    def UCS2LCS(self,pto,ijk=False):
         matrix=array([self.xaxis,self.yaxis,self.zaxis])
         #matrix=matrix.T
         pto=inner(matrix,pto)
-        pto=pto-self.origem
+        if not ijk:
+            pto=pto-self.origem
         return pto
 
-    def ijk_UCS2LCS(self,versor):
-        matrix=array([self.xaxis,self.yaxis,self.zaxis])
-        #matrix=matrix.T
-        pto=inner(matrix,versor)
-        #pto=pto-self.origem
-        return pto
+#    def ijk_UCS2LCS(self,versor):
+#        matrix=array([self.xaxis,self.yaxis,self.zaxis])
+#        #matrix=matrix.T
+#        pto=inner(matrix,versor)
+#        #pto=pto-self.origem
+#        return pto
 
 
-    def LCS2UCS(self,pto):
+#    def LCS2UCS(self,pto):
+#        matrix=array([self.xaxis,self.yaxis,self.zaxis])
+#        matrix=matrix.T
+#        pto=inner(matrix,pto)
+#        pto=pto+self.origem
+#        return pto
+        
+    def LCS2UCS(self,pto,ijk=False):
         matrix=array([self.xaxis,self.yaxis,self.zaxis])
         matrix=matrix.T
         pto=inner(matrix,pto)
-        pto=pto+self.origem
-        return pto
+        if not ijk:
+            pto=pto+self.origem
+        return pto        
 
-    def ijk_LCS2UCS(self,versor):
-        matrix=array([self.xaxis,self.yaxis,self.zaxis])
-        matrix=matrix.T
-        versor=inner(matrix,versor)
-        #pto=pto+self.origem
-        return versor
+#    def ijk_LCS2UCS(self,versor):
+#        matrix=array([self.xaxis,self.yaxis,self.zaxis])
+#        matrix=matrix.T
+#        versor=inner(matrix,versor)
+#        #pto=pto+self.origem
+#        return versor
 
  #   def LCS2UCS(self,pto,xaxis=self.xaxis,yaxis=self.yaxis,zaxis=self.zaxis):
  #       matrix=array([xaxis,yaxis,zaxis])
@@ -53,10 +69,17 @@ class sistCoord:
 
     def OCS2LCS(self,OCS,pto):
         #Rotation
-        xLOCS=self.ijk_UCS2LCS(OCS.xaxis)
-        yLOCS=self.ijk_UCS2LCS(OCS.yaxis)
-        zLOCS=self.ijk_UCS2LCS(OCS.zaxis)
-        S2S1=self.ijk_UCS2LCS(OCS.origem-self.origem)
+#        xLOCS=self.ijk_UCS2LCS(OCS.xaxis)
+#        yLOCS=self.ijk_UCS2LCS(OCS.yaxis)
+#        zLOCS=self.ijk_UCS2LCS(OCS.zaxis)
+#        S2S1=self.ijk_UCS2LCS(OCS.origem-self.origem)
+        
+        xLOCS=self.UCS2LCS(OCS.xaxis,True)
+        yLOCS=self.UCS2LCS(OCS.yaxis,True)
+        zLOCS=self.UCS2LCS(OCS.zaxis,True)
+        S2S1=self.UCS2LCS(OCS.origem-self.origem,True)
+
+        
         #nwpto=self.LCS2UCS(pto,xLOCS,yLOCS,zLOCS)
         nwpto=self.LCS2UCS2(pto,xLOCS,yLOCS,zLOCS,S2S1)
         #only translation
@@ -98,9 +121,16 @@ yrs_se=array([0,-1,0])
 zrs_se=array([0,0,1])
 
 #Eixos do sistema Local no Global (Ers_SE--->Ers_gl)
-xrs_gl=SE.ijk_LCS2UCS(xrs_se)
-yrs_gl=SE.ijk_LCS2UCS(yrs_se)
-zrs_gl=SE.ijk_LCS2UCS(zrs_se)
+#xrs_gl=SE.ijk_LCS2UCS(xrs_se)
+#yrs_gl=SE.ijk_LCS2UCS(yrs_se)
+#zrs_gl=SE.ijk_LCS2UCS(zrs_se)
+
+
+xrs_gl=SE.LCS2UCS(xrs_se,True)
+yrs_gl=SE.LCS2UCS(yrs_se,True)
+zrs_gl=SE.LCS2UCS(zrs_se,True)
+
+
 
 print("xrs,yrs,zrs_gl= ",xrs_gl,yrs_gl,zrs_gl)
 

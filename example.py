@@ -9,15 +9,19 @@ print ("\n************Translacao entre Sistemas Coordenados**************\n")
 #CriaÃ§Ã£o do Sist Estrutural
 SEorigin=array([0,0,-5.182])
 xaxis,yaxis,zaxis=array([0,-1,0]),array([1,0,0]),array([0,0,1])
+#Sist Estrutural
 SE=sistCoord(SEorigin,xaxis,yaxis,zaxis)
 
+print("\nSEo= ",SEorigin)
 
 #Provando Pontos 1
 Origen_do_global=array([0,0,0])
 
 Origen_do_global_SE=SE.UCS2LCS(Origen_do_global)
 
-print("\nOrigen_do_global_SE= ",Origen_do_global_SE)
+#print("\nOrigen_do_global_SE= ",Origen_do_global_SE)
+
+
 
 
 
@@ -25,7 +29,7 @@ print("\nOrigen_do_global_SE= ",Origen_do_global_SE)
 #Provando Pontos 2
 OLS_SE=array([-60,-13.24,4.8])
 
-print("OLS_SE= ",OLS_SE)
+print("SistLocal_SE= ",OLS_SE)
 
 #Origem LocalSystem em SE ---> Origem LocalSystem em global
 OLS_gl=SE.LCS2UCS(OLS_SE)
@@ -71,7 +75,27 @@ PT_seProva=SE.OCS2LCS(LS,PT_SL)
 
 print("\nPto Tangencia_SEprova ",PT_seProva)
 
-Ogl_UTM=array([10,20,0])
+#Sistema Coordenado UTM
+Ogl_UTM=-array([536414.0,8580327.0,0])
 ExUTM_gl,NyUTM_gl,zUTM_gl=array([1,0,0]),array([0,1,0]),array([0,0,1])
+UTM=sistCoord(Ogl_UTM,ExUTM_gl,NyUTM_gl,zUTM_gl)
+
+#Calculo do PT2 o Segundo Ponto de Tangencia
+PT2_SL=array([0,0,1.3347])
+PT2_gl=LS.LCS2UCS(PT2_SL)
+print("\nPto Tangencia 2_LS ",PT2_SL)
+print("\nPto Tangencia 2_LS ",PT2_gl)
 
 
+#Ponto de Conexão (Maq. Tração) no SistemaEstrutural. Metodo OCS2LCS
+print ("\n---Ponto de Conexao (Maq. Tracao)---\n")
+
+conexao_SE_16=array([5,-13.24,10.84],dtype=float)
+conexao_gl_16=SE.LCS2UCS(conexao)
+heightTractionMachine_SE=conexao_SE_16-array([0,0,16*2.54/100/2])
+heightTractionMachine_gl=SE.LCS2UCS(heightTractionMachine_SE)
+
+print("\nPto de Conexão (16pulg)_SE ",conexao_SE_16)
+print("\nPto de Conexão (16pulg)_gl ",conexao_gl_16)
+print("\nheightTractionMachine_SE ",heightTractionMachine_SE)
+print("\nheightTractionMachine_gl ",heightTractionMachine_gl)

@@ -1,6 +1,7 @@
 # -*- coding: latin1 -*-
 from numpy import array
 from numpy import inner
+from numpy.linalg import inv
 class sistCoord:
     """Cartesian Coordinate System: make cartesian coordinate objects with 
     the origin and the axis"""
@@ -14,10 +15,13 @@ class sistCoord:
         """From Universal Coordinate System to Local Coordinate System 
         if ijk=True: pto is a versor and then don't need translation only rotation"""
         matrix=array([self.xaxis,self.yaxis,self.zaxis])
-        #matrix=matrix.T
-        pto=inner(matrix,pto)
+        #matrixT=matrix.T
+        #matrix=inv(matrixT)
+        #if matrix[:,:]==matrixT[:,:]: print("é igual")
+        #pto=inner(matrix,pto)
         if not ijk:
             pto=pto-self.origem
+        pto=inner(matrix,pto)
         return pto
 
         

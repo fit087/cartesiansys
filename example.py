@@ -91,11 +91,57 @@ print("\nPto Tangencia 2_LS ",PT2_gl)
 print ("\n---Ponto de Conexao (Maq. Tracao)---\n")
 
 conexao_SE_16=array([5,-13.24,10.84],dtype=float)
-conexao_gl_16=SE.LCS2UCS(conexao)
+conexao_gl_16=SE.LCS2UCS(conexao_SE_16)
 heightTractionMachine_SE=conexao_SE_16-array([0,0,16*2.54/100/2])
 heightTractionMachine_gl=SE.LCS2UCS(heightTractionMachine_SE)
+
+heightTractionMachine_utm=UTM.OCS2LCS(SE,heightTractionMachine_SE)
+heightTractionMachine_utm1=UTM.UCS2LCS(heightTractionMachine_gl)
+
+
 
 print("\nPto de Conexão (16pulg)_SE ",conexao_SE_16)
 print("\nPto de Conexão (16pulg)_gl ",conexao_gl_16)
 print("\nheightTractionMachine_SE ",heightTractionMachine_SE)
 print("\nheightTractionMachine_gl ",heightTractionMachine_gl)
+
+print("\nheightTractionMachine_utm ",heightTractionMachine_utm)
+print("\nheightTractionMachine_utm1 ",heightTractionMachine_utm1)
+
+# xline=SE.LCS2UCS(-SE.xaxis,True)
+# yline=SE.LCS2UCS(-SE.yaxis,True)
+# zline=SE.LCS2UCS(SE.zaxis,True)
+LineSys=sistCoord(heightTractionMachine_gl,LS.xaxis,LS.yaxis,LS.zaxis)
+
+PT_LineS=LineSys.UCS2LCS(PT_GL)
+PT2_LineS=LineSys.UCS2LCS(PT2_gl)
+
+print("PT_LineS= ",PT_LineS)
+print("PT_LineS= ",PT_LineS[0])
+print("PT2_LineS= ",PT2_LineS)
+print("PT_GL= ",PT_GL)
+print("LS.origem= ",LS.origem)
+print("LS.origem_SE= ",SE.UCS2LCS(LS.origem))
+print("LineSys.origem_SE= ",SE.UCS2LCS(LineSys.origem))
+
+heightTractionMachine_LineSys=LineSys.UCS2LCS(heightTractionMachine_gl)
+
+print("heightTractionMachine_LineSys= ",heightTractionMachine_LineSys)
+
+print("LineSys.origem= ", LineSys.origem)
+
+print("LS.xaxis,LS.yaxis,LS.zaxis= ",LS.xaxis,LS.yaxis,LS.zaxis)
+
+#1,3347
+#PT2Mauro_SL=array([0,0,1.3347])
+
+endSt_LS=array([22.0710,0,-5.7749])
+endSt_LineS=LineSys.OCS2LCS(LS,endSt_LS)
+print("endSt_LineS= ", endSt_LineS)
+referencesPoint_LineS=endSt_LineS
+referencesPoint_LineS[0]/=2
+print("referencesPoint_LineS",referencesPoint_LineS)
+referencesPoint_gl=LineSys.LCS2UCS(referencesPoint_LineS)
+referencesPoint_utm=UTM.OCS2LCS(LineSys,referencesPoint_LineS)
+print("referencesPoint_gl",referencesPoint_gl)
+print("referencesPoint_utm",referencesPoint_utm)

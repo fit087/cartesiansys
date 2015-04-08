@@ -15,8 +15,8 @@ class sistCoord:
         """From Universal Coordinate System to Local Coordinate System 
         if ijk=True: pto is a versor and then don't need translation only rotation"""
         matrix=array([self.xaxis,self.yaxis,self.zaxis])
-        #matrixT=matrix.T
-        #matrix=inv(matrixT)
+        matrixT=matrix.T
+        matrix=inv(matrixT)
         #if matrix[:,:]==matrixT[:,:]: print("é igual")
         #pto=inner(matrix,pto)
         if not ijk:

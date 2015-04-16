@@ -145,3 +145,15 @@ referencesPoint_gl=LineSys.LCS2UCS(referencesPoint_LineS)
 referencesPoint_utm=UTM.OCS2LCS(LineSys,referencesPoint_LineS)
 print("referencesPoint_gl",referencesPoint_gl)
 print("referencesPoint_utm",referencesPoint_utm)
+#-13.23999994        -5.00000016         5.65799999
+lastptLine_gl=array([-13.23999994,-5.00000016,5.65799999])
+print("lastptLine_gl=",lastptLine_gl)
+d=lastptLine_gl-heightTractionMachine_gl
+print("lastptLine_gl-heightTractionMachine_gl=",d)
+d=d[2]*100
+print ("diferença em cm.=",d)
+d/=2.54
+print ("diferença em cm.=",d)
+
+d1=8*2.54/100 #8in-->xm.
+print ("lastptLine_gl[2]-d1= ",lastptLine_gl[2]-d1)
